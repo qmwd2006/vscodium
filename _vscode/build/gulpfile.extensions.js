@@ -186,40 +186,42 @@ const tasks = compilations.map(function (tsconfigFile) {
 	return { compileTask, watchTask, compileBuildTask };
 });
 
-const compileExtensionsTask = task.define('compile-extensions', task.parallel(...tasks.map(t => t.compileTask)));
+function b(msg) {
+    return () => {
+        
+    }
+}
+
+const compileExtensionsTask = task.define('compile-extensions', b('compile-extensions'));
 gulp.task(compileExtensionsTask);
 exports.compileExtensionsTask = compileExtensionsTask;
 
-const watchExtensionsTask = task.define('watch-extensions', task.parallel(...tasks.map(t => t.watchTask)));
+const watchExtensionsTask = task.define('watch-extensions', b('watch-extensions'));
 gulp.task(watchExtensionsTask);
 exports.watchExtensionsTask = watchExtensionsTask;
 
-const compileExtensionsBuildLegacyTask = task.define('compile-extensions-build-legacy', task.parallel(...tasks.map(t => t.compileBuildTask)));
+const compileExtensionsBuildLegacyTask = task.define('compile-extensions-build-legacy', b('compile-extensions-build-legacy'));
 gulp.task(compileExtensionsBuildLegacyTask);
 
 //#region Extension media
 
-const compileExtensionMediaTask = task.define('compile-extension-media', () => ext.buildExtensionMedia(false));
+const compileExtensionMediaTask = task.define('compile-extension-media', b('compile-extension-media'));
 gulp.task(compileExtensionMediaTask);
 exports.compileExtensionMediaTask = compileExtensionMediaTask;
 
-const watchExtensionMedia = task.define('watch-extension-media', () => ext.buildExtensionMedia(true));
+const watchExtensionMedia = task.define('watch-extension-media', b('watch-extension-media'));
 gulp.task(watchExtensionMedia);
 exports.watchExtensionMedia = watchExtensionMedia;
 
-const compileExtensionMediaBuildTask = task.define('compile-extension-media-build', () => ext.buildExtensionMedia(false, '.build/extensions'));
+const compileExtensionMediaBuildTask = task.define('compile-extension-media-build', b('compile-extension-media-build'));
 gulp.task(compileExtensionMediaBuildTask);
 
 //#endregion
 
 //#region Azure Pipelines
 
-const cleanExtensionsBuildTask = task.define('clean-extensions-build', util.rimraf('.build/extensions'));
-const compileExtensionsBuildTask = task.define('compile-extensions-build', task.series(
-	cleanExtensionsBuildTask,
-	task.define('bundle-extensions-build', () => ext.packageLocalExtensionsStream(false).pipe(gulp.dest('.build'))),
-	task.define('bundle-marketplace-extensions-build', () => ext.packageMarketplaceExtensionsStream(false).pipe(gulp.dest('.build'))),
-));
+const cleanExtensionsBuildTask = task.define('clean-extensions-build', b('clean-extensions-build'));
+const compileExtensionsBuildTask = task.define('compile-extensions-build', b('compile-extensions-build'));
 
 gulp.task(compileExtensionsBuildTask);
 gulp.task(task.define('extensions-ci', task.series(compileExtensionsBuildTask, compileExtensionMediaBuildTask)));
@@ -228,11 +230,11 @@ exports.compileExtensionsBuildTask = compileExtensionsBuildTask;
 
 //#endregion
 
-const compileWebExtensionsTask = task.define('compile-web', () => buildWebExtensions(false));
+const compileWebExtensionsTask = task.define('compile-web', b('compile-web'));
 gulp.task(compileWebExtensionsTask);
 exports.compileWebExtensionsTask = compileWebExtensionsTask;
 
-const watchWebExtensionsTask = task.define('watch-web', () => buildWebExtensions(true));
+const watchWebExtensionsTask = task.define('watch-web', b('watch-web'));
 gulp.task(watchWebExtensionsTask);
 exports.watchWebExtensionsTask = watchWebExtensionsTask;
 
