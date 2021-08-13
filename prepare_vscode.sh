@@ -2,7 +2,9 @@
 
 set -e
 
-tree -L 2
+pwd
+ls -alh
+
 cp -rp src/* vscode/
 cp -rp _vscode/build/* vscode/build/
 
