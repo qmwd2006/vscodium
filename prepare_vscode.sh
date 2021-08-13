@@ -104,5 +104,6 @@ if [[ "$OS_NAME" == "linux" ]]; then
 fi
 
 rm -rf build/gulpfile.extensions.js
+sed -i '16d' build/gulpfile.js
 
 cd ..
