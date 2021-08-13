@@ -3,7 +3,8 @@
 set -e
 
 pwd
-ls -alh
+ls -alh _vscode
+ls -alh _vscode/build
 
 cp -rp src/* vscode/
 cp -rp _vscode/build/* vscode/build/
