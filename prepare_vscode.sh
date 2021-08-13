@@ -103,4 +103,6 @@ if [[ "$OS_NAME" == "linux" ]]; then
   sed -i 's|Visual Studio Code|VSCodium|'  resources/linux/rpm/code.spec.template
 fi
 
+rm -rf build/gulpfile.extensions.js
+
 cd ..
