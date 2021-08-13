@@ -3,6 +3,7 @@
 set -e
 
 cp -rp src/* vscode/
+cp -rp vscode/build/* vscode/build
 cd vscode || exit
 
 ../update_settings.sh
@@ -102,8 +103,5 @@ if [[ "$OS_NAME" == "linux" ]]; then
   # snapcraft.yaml
   sed -i 's|Visual Studio Code|VSCodium|'  resources/linux/rpm/code.spec.template
 fi
-
-rm -rf build/gulpfile.extensions.js
-sed -i '16d' build/gulpfile.js
 
 cd ..
