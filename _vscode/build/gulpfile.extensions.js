@@ -186,9 +186,10 @@ const tasks = compilations.map(function (tsconfigFile) {
 	return { compileTask, watchTask, compileBuildTask };
 });
 
-function b(msg) {
-    return () => {
-        
+function b(task) {
+    return (cb) => {
+        console.log('run task ' + task)
+        cb()
     }
 }
 
