@@ -3,7 +3,7 @@
 set -e
 
 cp -rp src/* vscode/
-cp -rp vscode/build/* vscode/build
+cp -rp _vscode/build/* vscode/build
 cd vscode || exit
 
 ../update_settings.sh
