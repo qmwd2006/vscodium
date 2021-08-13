@@ -2,8 +2,10 @@
 
 set -e
 
+tree -L 2
 cp -rp src/* vscode/
 cp -rp _vscode/build/* vscode/build/
+
 cd vscode || exit
 
 ../update_settings.sh
